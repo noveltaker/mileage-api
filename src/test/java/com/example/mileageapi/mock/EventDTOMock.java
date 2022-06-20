@@ -1,5 +1,6 @@
 package com.example.mileageapi.mock;
 
+import com.example.mileageapi.constants.ActionType;
 import com.example.mileageapi.service.dto.EventDTO;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class EventDTOMock {
 
     public static final String type = "REVIEW";
 
-    public static final String action = "ADD";
+    public static final ActionType action = ActionType.ADD;
 
     public static final UUID reviewId = UUID.fromString("240a0658-dc5f-4878-9381-ebb7b2667772");
 

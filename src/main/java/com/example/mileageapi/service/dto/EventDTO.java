@@ -1,5 +1,6 @@
 package com.example.mileageapi.service.dto;
 
+import com.example.mileageapi.constants.ActionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class EventDTO {
     private String type;
 
     // 이벤트에 대한 action 타입
-    private String action;
+    private ActionType action;
 
     // 리뷰의 아이디값
     private UUID reviewId;
