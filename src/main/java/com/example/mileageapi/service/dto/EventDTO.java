@@ -1,12 +1,14 @@
 package com.example.mileageapi.service.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +27,7 @@ public class EventDTO {
     private String content;
 
     // 사진에 대한 값 리스트
-    private List<String> attachedPhotoIds;
+    private List<UUID> attachedPhotoIds;
 
     // 유저 아이디
     private UUID userId;
