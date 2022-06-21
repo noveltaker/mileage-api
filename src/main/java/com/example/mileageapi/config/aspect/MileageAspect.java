@@ -23,14 +23,14 @@ public class MileageAspect {
     @Around("com.example.mileageapi.config.aspect.MileageAspect.onRequest()")
     public Object doLogging(ProceedingJoinPoint pjp) throws Throwable {
 
-        Map requestBody = params(pjp);
+        Map requestBody = getParams(pjp);
 
         EventDTO dto = (EventDTO) requestBody.get("dto");
 
         return pjp.proceed(pjp.getArgs());
     }
 
-    private Map params(JoinPoint joinPoint) {
+    private Map getParams(JoinPoint joinPoint) {
         CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
         String[] parameterNames = codeSignature.getParameterNames();
         Object[] args = joinPoint.getArgs();
