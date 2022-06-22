@@ -15,6 +15,7 @@ import java.util.UUID;
 public class Mileage {
 
     @Id
+    @Column(columnDefinition = "BINARY(16)")
     private UUID reviewId;
 
     // mileage type
