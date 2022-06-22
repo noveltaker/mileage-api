@@ -5,6 +5,7 @@ import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class EventController {
 
     @PostMapping("events")
     @ResponseStatus(HttpStatus.CREATED)
-    public EventDTO getReviewEvent(EventDTO dto) {
+    public EventDTO getReviewEvent(@RequestBody EventDTO dto) {
         return eventService.createdReview(dto);
     }
 }
