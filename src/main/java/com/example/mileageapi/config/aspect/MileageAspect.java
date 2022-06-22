@@ -1,6 +1,6 @@
 package com.example.mileageapi.config.aspect;
 
-import com.example.mileageapi.config.aspect.mileage.MileagePoint;
+import com.example.mileageapi.config.aspect.mileagepoint.MileagePoint;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;

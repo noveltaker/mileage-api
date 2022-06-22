@@ -1,4 +1,4 @@
-package com.example.mileageapi.config.aspect.mileage;
+package com.example.mileageapi.config.aspect.mileagepoint;
 
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
