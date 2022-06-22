@@ -24,4 +24,10 @@ public class Mileage {
 
     @Column(nullable = false)
     private Integer count;
+
+    @Transient
+    public void changedTypeAndCount(MileageType type, Integer count) {
+        this.count = count;
+        this.type = type;
+    }
 }

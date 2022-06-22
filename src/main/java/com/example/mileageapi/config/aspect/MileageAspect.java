@@ -1,5 +1,6 @@
 package com.example.mileageapi.config.aspect;
 
+import com.example.mileageapi.config.aspect.mileage.MileagePoint;
 import com.example.mileageapi.constants.ActionType;
 import com.example.mileageapi.constants.MileageType;
 import com.example.mileageapi.domain.Mileage;
@@ -34,59 +35,9 @@ public class MileageAspect {
 
         EventDTO dto = (EventDTO) requestBody.get("dto");
 
-        List<Mileage> mileageList = new ArrayList<>();
+        MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
 
-        if (ActionType.ADD.equals(dto.getAction())) {
-
-            //첫번쨰 리뷰 작성
-            UUID reviewId = dto.getReviewId();
-
-            long reviewCount = mileageRepository.countByReviewId(reviewId);
-
-            if (reviewCount > 0) {
-
-                mileageList.add(
-                        Mileage.builder()
-                                .type(MileageType.REVIEW_ADD)
-                                .reviewId(dto.getReviewId())
-                                .count(1)
-                                .build()
-                );
-
-            }
-
-
-            String content = dto.getContent();
-
-            int contentLength = content.length();
-
-            if (contentLength > 0) {
-                mileageList.add(
-                        Mileage.builder()
-                                .type(MileageType.CONTENT_ADD)
-                                .reviewId(dto.getReviewId())
-                                .count(1)
-                                .build()
-                );
-            }
-
-            List<UUID> attachedPhotoIds = dto.getAttachedPhotoIds();
-
-            if (attachedPhotoIds.size() > 0) {
-
-                mileageList.add(
-                        Mileage.builder()
-                                .type(MileageType.PHOTO_ADD)
-                                .reviewId(dto.getReviewId())
-                                .count(1)
-                                .build()
-                );
-
-            }
-
-        }
-
-        mileageRepository.saveAll(mileageList);
+        mileagePoint.getPoint();
 
         return pjp.proceed(pjp.getArgs());
     }
