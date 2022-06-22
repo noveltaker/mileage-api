@@ -1,6 +1,7 @@
 package com.example.mileageapi.service.dto;
 
 import com.example.mileageapi.constants.ActionType;
+import com.example.mileageapi.domain.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,4 +36,8 @@ public class EventDTO {
 
     // 장소 아이디
     private UUID placeId;
+
+    public Review toEntity() {
+        return Review.builder().reviewId(this.reviewId).content(this.content).attachedPhotoIds(this.attachedPhotoIds).userId(this.userId).placeId(this.placeId).build();
+    }
 }
