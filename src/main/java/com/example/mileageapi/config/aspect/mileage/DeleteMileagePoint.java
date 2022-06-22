@@ -22,7 +22,7 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
     }
 
     @Override
-    public void getPoint() {
+    public List<Mileage> getPoints() {
 
         EventDTO dto = this.getDto();
 
@@ -44,7 +44,7 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
             }
         }
 
-        mileageRepository.saveAll(deleteMileageList);
+       return deleteMileageList;
     }
 
     private MileageType changeRemoveType(MileageType type) {

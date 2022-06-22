@@ -16,7 +16,7 @@ public final class AddMileagePoint extends AbstractMileagePoint {
     }
 
     @Override
-    public void getPoint() {
+    public List<Mileage> getPoints() {
 
         MileageRepository mileageRepository = getMileageRepository();
 
@@ -27,7 +27,7 @@ public final class AddMileagePoint extends AbstractMileagePoint {
         //첫번쨰 리뷰 작성
         UUID reviewId = dto.getReviewId();
 
-        long reviewCount = getMileageRepository().countByReviewId(reviewId);
+        long reviewCount = mileageRepository.countByReviewId(reviewId);
 
         if (reviewCount > 0) {
             mileageList.add(Mileage.builder().type(MileageType.REVIEW_ADD).reviewId(dto.getReviewId()).count(1).build());
@@ -49,6 +49,6 @@ public final class AddMileagePoint extends AbstractMileagePoint {
             mileageList.add(Mileage.builder().type(MileageType.PHOTO_ADD).reviewId(dto.getReviewId()).count(1).build());
         }
 
-        mileageRepository.saveAll(mileageList);
+        return mileageList;
     }
 }

@@ -1,8 +1,11 @@
 package com.example.mileageapi.config.aspect.mileage;
 
 import com.example.mileageapi.constants.ActionType;
+import com.example.mileageapi.domain.Mileage;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
+
+import java.util.List;
 
 public class MileagePoint {
 
@@ -17,7 +20,7 @@ public class MileagePoint {
         this.dto = dto;
     }
 
-    public void configure() {
+    public void createMileage() {
 
         ActionType action = dto.getAction();
 
@@ -32,7 +35,8 @@ public class MileagePoint {
 
     }
 
-    public void getPoint() {
-        point.getPoint();
+    public void saveMileagePoints() {
+        List<Mileage> points = point.getPoints();
+        mileageRepository.saveAll(points);
     }
 }

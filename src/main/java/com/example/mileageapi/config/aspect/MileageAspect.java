@@ -1,9 +1,6 @@
 package com.example.mileageapi.config.aspect;
 
 import com.example.mileageapi.config.aspect.mileage.MileagePoint;
-import com.example.mileageapi.constants.ActionType;
-import com.example.mileageapi.constants.MileageType;
-import com.example.mileageapi.domain.Mileage;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +12,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Aspect
 @Component
@@ -37,9 +35,9 @@ public class MileageAspect {
 
         MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
 
-        mileagePoint.configure();
+        mileagePoint.createMileage();
 
-        mileagePoint.getPoint();
+        mileagePoint.saveMileagePoints();
 
         return pjp.proceed(pjp.getArgs());
     }

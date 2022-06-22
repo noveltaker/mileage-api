@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Point {
 
-    void getPoint();
+    List<Mileage> getPoints();
 }
