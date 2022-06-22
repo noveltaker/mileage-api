@@ -37,6 +37,8 @@ public class MileageAspect {
 
         MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
 
+        mileagePoint.configure();
+
         mileagePoint.getPoint();
 
         return pjp.proceed(pjp.getArgs());

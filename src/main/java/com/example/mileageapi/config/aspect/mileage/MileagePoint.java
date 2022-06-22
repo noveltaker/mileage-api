@@ -4,23 +4,22 @@ import com.example.mileageapi.constants.ActionType;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 
-public class MileagePoint implements Point {
+public class MileagePoint {
 
     private final MileageRepository mileageRepository;
 
     private final EventDTO dto;
+
+    private Point point;
 
     public MileagePoint(MileageRepository mileageRepository, EventDTO dto) {
         this.mileageRepository = mileageRepository;
         this.dto = dto;
     }
 
-    @Override
-    public void getPoint() {
+    public void configure() {
 
         ActionType action = dto.getAction();
-
-        Point point = null;
 
         switch (action) {
             case ADD:
@@ -31,6 +30,9 @@ public class MileagePoint implements Point {
                 break;
         }
 
+    }
+
+    public void getPoint() {
         point.getPoint();
     }
 }
