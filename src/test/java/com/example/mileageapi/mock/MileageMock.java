@@ -7,6 +7,16 @@ import java.util.List;
 
 public class MileageMock {
 
+    public static Mileage createdMock() {
+        return Mileage.builder()
+                .type(MileageType.REVIEW_ADD)
+                .reviewId(EventDTOMock.reviewId)
+                .placeId(EventDTOMock.placeId)
+                .userId(EventDTOMock.userId)
+                .point(1)
+                .build();
+    }
+
     public static List<Mileage> createdMocks() {
         return List.of(
                 Mileage.builder()
