@@ -35,7 +35,7 @@ public class Mileage {
     private Integer point;
 
     @Transient
-    public void changedTypeAndCount(MileageType type, Integer point) {
+    public void changedTypeAndPoint(MileageType type, Integer point) {
         this.point = point;
         this.type = type;
     }

@@ -32,9 +32,16 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
         List<Mileage> deleteMileageList = new ArrayList<>();
 
         for (MileageType type : mileageTypeList) {
+
             for (Mileage mileage : reviewMileageList) {
                 if (type.equals(mileage.getType())) {
-                    mileage.changedTypeAndCount(changeRemoveType(mileage.getType()), mileage.getPoint() * -1);
+
+                    MileageType removeMileageType = changeRemoveType(mileage.getType());
+
+                    int point = mileage.getPoint() * -1;
+
+                    mileage.changedTypeAndPoint(removeMileageType, point);
+
                     deleteMileageList.add(mileage);
                     break;
                 }
