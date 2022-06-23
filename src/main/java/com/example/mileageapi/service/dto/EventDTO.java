@@ -36,7 +36,4 @@ public class EventDTO {
     // 장소 아이디
     private UUID placeId;
 
-    public Review toEntity() {
-        return Review.builder().reviewId(this.reviewId).content(this.content).attachedPhotoIds(this.attachedPhotoIds).userId(this.userId).placeId(this.placeId).build();
-    }
 }

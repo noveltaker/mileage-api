@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface MileageRepository extends JpaRepository<Mileage, MileageKey> {
-    long countByReviewId(UUID reviewId);
+    long countByPlaceId(UUID placeId);
 
     List<Mileage> findByReviewId(UUID reviewId);
 }

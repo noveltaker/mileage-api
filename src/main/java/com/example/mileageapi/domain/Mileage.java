@@ -32,11 +32,11 @@ public class Mileage {
     private UUID placeId;
 
     @Column(nullable = false)
-    private Integer count;
+    private Integer point;
 
     @Transient
-    public void changedTypeAndCount(MileageType type, Integer count) {
-        this.count = count;
+    public void changedTypeAndCount(MileageType type, Integer point) {
+        this.point = point;
         this.type = type;
     }
 }

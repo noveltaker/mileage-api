@@ -11,11 +11,7 @@ import java.util.UUID;
 
 public class DeleteMileagePoint extends AbstractMileagePoint {
 
-    private final List<MileageType> mileageTypeList = List.of(
-            MileageType.CONTENT_ADD,
-            MileageType.PHOTO_ADD,
-            MileageType.REVIEW_ADD
-    );
+    private final List<MileageType> mileageTypeList = List.of(MileageType.CONTENT_ADD, MileageType.PHOTO_ADD, MileageType.REVIEW_ADD);
 
     public DeleteMileagePoint(EventDTO dto, MileageRepository mileageRepository) {
         super(dto, mileageRepository);
@@ -37,14 +33,14 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
         for (MileageType type : mileageTypeList) {
             for (Mileage mileage : reviewMileageList) {
                 if (type.equals(mileage.getType())) {
-                    mileage.changedTypeAndCount(changeRemoveType(mileage.getType()), mileage.getCount() * -1);
+                    mileage.changedTypeAndCount(changeRemoveType(mileage.getType()), mileage.getPoint() * -1);
                     deleteMileageList.add(mileage);
                     break;
                 }
             }
         }
 
-       return deleteMileageList;
+        return deleteMileageList;
     }
 
     private MileageType changeRemoveType(MileageType type) {

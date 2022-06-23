@@ -24,13 +24,13 @@ public final class AddMileagePoint extends AbstractMileagePoint {
 
         List<Mileage> mileageList = new ArrayList<>();
 
-        //첫번쨰 리뷰 작성
-        UUID reviewId = dto.getReviewId();
+        // 장소 기준으로 첫 리뷰 작성
+        UUID placeId = dto.getPlaceId();
 
-        long reviewCount = mileageRepository.countByReviewId(reviewId);
+        long reviewCount = mileageRepository.countByPlaceId(placeId);
 
-        if (reviewCount > 0) {
-            mileageList.add(Mileage.builder().type(MileageType.REVIEW_ADD).reviewId(dto.getReviewId()).count(1).build());
+        if (reviewCount == 0) {
+            mileageList.add(Mileage.builder().type(MileageType.REVIEW_ADD).reviewId(dto.getReviewId()).point(1).build());
         }
 
         String content = dto.getContent();
@@ -39,14 +39,14 @@ public final class AddMileagePoint extends AbstractMileagePoint {
 
         // 컨텐츠 길이가 1 이상일떄 포인트 추가
         if (contentLength > 0) {
-            mileageList.add(Mileage.builder().type(MileageType.CONTENT_ADD).reviewId(dto.getReviewId()).count(1).build());
+            mileageList.add(Mileage.builder().type(MileageType.CONTENT_ADD).reviewId(dto.getReviewId()).point(1).build());
         }
 
         List<UUID> attachedPhotoIds = dto.getAttachedPhotoIds();
 
         // 사진의 갯수가 1 이상일때 포인트 추가
         if (attachedPhotoIds.size() > 0) {
-            mileageList.add(Mileage.builder().type(MileageType.PHOTO_ADD).reviewId(dto.getReviewId()).count(1).build());
+            mileageList.add(Mileage.builder().type(MileageType.PHOTO_ADD).reviewId(dto.getReviewId()).point(1).build());
         }
 
         return mileageList;
