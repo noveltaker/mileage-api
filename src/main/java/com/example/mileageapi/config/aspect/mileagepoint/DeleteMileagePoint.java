@@ -1,5 +1,6 @@
 package com.example.mileageapi.config.aspect.mileagepoint;
 
+import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
 import com.example.mileageapi.constants.MileageType;
 import com.example.mileageapi.domain.Mileage;
 import com.example.mileageapi.repository.MileageRepository;
@@ -52,8 +53,7 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
             case REVIEW_ADD:
                 return MileageType.REVIEW_REMOVE;
             default:
-                // todo : exception
-                throw new NullPointerException();
+                throw new NotMatchMileageTypeException(type.name());
         }
     }
 }
