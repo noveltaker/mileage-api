@@ -23,6 +23,14 @@ public class Mileage {
     @Enumerated(EnumType.STRING)
     private MileageType type;
 
+    // 리뷰 작성 유저의 아이디
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID userId;
+
+    // 장소 id
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID placeId;
+
     @Column(nullable = false)
     private Integer count;
 
