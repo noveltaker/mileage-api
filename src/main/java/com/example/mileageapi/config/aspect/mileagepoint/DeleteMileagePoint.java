@@ -2,8 +2,8 @@ package com.example.mileageapi.config.aspect.mileagepoint;
 
 import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
 import com.example.mileageapi.constants.MileageType;
-import com.example.mileageapi.domain.Mileage;
-import com.example.mileageapi.repository.MileageRepository;
+import com.example.mileageapi.domain.MileageHistory;
+import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 
 import java.util.ArrayList;
@@ -15,26 +15,26 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
   private final List<MileageType> mileageTypeList =
       List.of(MileageType.CONTENT_ADD, MileageType.PHOTO_ADD, MileageType.REVIEW_ADD);
 
-  public DeleteMileagePoint(EventDTO dto, MileageRepository mileageRepository) {
-    super(dto, mileageRepository);
+  public DeleteMileagePoint(EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
+    super(dto, mileageHistoryRepository);
   }
 
   @Override
-  public List<Mileage> getPoints() {
+  public List<MileageHistory> getPoints() {
 
     EventDTO dto = this.getDto();
 
-    MileageRepository mileageRepository = this.getMileageRepository();
+    MileageHistoryRepository mileageHistoryRepository = this.getMileageRepository();
 
     UUID reviewId = dto.getReviewId();
 
-    List<Mileage> reviewMileageList = mileageRepository.findByReviewId(reviewId);
+    List<MileageHistory> reviewMileageList = mileageHistoryRepository.findByReviewId(reviewId);
 
-    List<Mileage> deleteMileageList = new ArrayList<>();
+    List<MileageHistory> deleteMileageList = new ArrayList<>();
 
     for (MileageType type : mileageTypeList) {
 
-      for (Mileage mileage : reviewMileageList) {
+      for (MileageHistory mileage : reviewMileageList) {
         if (type.equals(mileage.getType())) {
 
           MileageType removeMileageType = changeRemoveType(mileage.getType());

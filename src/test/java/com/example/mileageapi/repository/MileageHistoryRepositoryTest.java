@@ -1,8 +1,8 @@
 package com.example.mileageapi.repository;
 
-import com.example.mileageapi.domain.Mileage;
+import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.mock.EventDTOMock;
-import com.example.mileageapi.mock.MileageMock;
+import com.example.mileageapi.mock.MileageHistoryMock;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +11,24 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-class MileageRepositoryTest {
+class MileageHistoryRepositoryTest {
 
     @Autowired
-    private MileageRepository mileageRepository;
+    private MileageHistoryRepository mileageHistoryRepository;
 
     @Test
     @DisplayName("마일리지 포인트들 저장 테스트 케이스")
     void save() {
 
-        List<Mileage> mocks = MileageMock.createdMocks();
+        List<MileageHistory> mocks = MileageHistoryMock.createdMocks();
 
-        List<Mileage> entities = mileageRepository.saveAll(mocks);
+        List<MileageHistory> entities = mileageHistoryRepository.saveAll(mocks);
 
-        for (Mileage mock : mocks) {
+        for (MileageHistory mock : mocks) {
 
-            Mileage entity = entities.stream().filter(foundEntity -> foundEntity.getType().equals(mock.getType())).findFirst().orElseThrow();
+            MileageHistory entity = entities.stream().filter(foundEntity -> foundEntity.getType().equals(mock.getType())).findFirst().orElseThrow();
 
             Assertions.assertEquals(mock.getType(), entity.getType());
             Assertions.assertEquals(mock.getReviewId(), entity.getReviewId());
@@ -45,23 +43,23 @@ class MileageRepositoryTest {
     @DisplayName("조회")
     class Select {
 
-        private List<Mileage> mocks;
+        private List<MileageHistory> mocks;
 
         @BeforeEach
         void init() {
-            mocks = mileageRepository.saveAll(MileageMock.createdMocks());
-            mileageRepository.flush();
+            mocks = mileageHistoryRepository.saveAll(MileageHistoryMock.createdMocks());
+            mileageHistoryRepository.flush();
         }
 
         @Test
         @DisplayName("리뷰 아이디 별로 데이터 조회 테스트 케이스")
         void findByReviewId() {
 
-            List<Mileage> entities = mileageRepository.findByReviewId(EventDTOMock.reviewId);
+            List<MileageHistory> entities = mileageHistoryRepository.findByReviewId(EventDTOMock.reviewId);
 
-            for (Mileage mock : mocks) {
+            for (MileageHistory mock : mocks) {
 
-                Mileage entity = entities.stream().filter(foundEntity -> foundEntity.getType().equals(mock.getType())).findFirst().orElseThrow();
+                MileageHistory entity = entities.stream().filter(foundEntity -> foundEntity.getType().equals(mock.getType())).findFirst().orElseThrow();
 
                 Assertions.assertEquals(mock.getType(), entity.getType());
                 Assertions.assertEquals(mock.getReviewId(), entity.getReviewId());

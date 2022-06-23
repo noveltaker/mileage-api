@@ -1,21 +1,19 @@
 package com.example.mileageapi.domain;
 
 import com.example.mileageapi.constants.MileageType;
-import com.example.mileageapi.mock.MileageMock;
+import com.example.mileageapi.mock.MileageHistoryMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class MileageTest {
+class MileageHsitoryTest {
 
 
     @Test
     @DisplayName("changedTypeAndPoint 메소드 테스트 케이스")
     void changedTypeAndPoint() {
 
-        Mileage mock = MileageMock.createdMock();
+        MileageHistory mock = MileageHistoryMock.createdMock();
 
         MileageType mockType = MileageType.REVIEW_REMOVE;
 

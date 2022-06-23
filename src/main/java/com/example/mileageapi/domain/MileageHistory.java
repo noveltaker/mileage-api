@@ -10,9 +10,9 @@ import java.util.UUID;
 @Entity
 @Builder
 @AllArgsConstructor
-@IdClass(value = MileageKey.class)
+@IdClass(value = MileageHistoryKey.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Mileage extends AbstractDateEntity {
+public class MileageHistory extends AbstractDateEntity {
 
   @Id
   @Column(columnDefinition = "BINARY(16)")

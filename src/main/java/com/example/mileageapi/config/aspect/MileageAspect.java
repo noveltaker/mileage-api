@@ -1,6 +1,6 @@
 package com.example.mileageapi.config.aspect;
 
-import com.example.mileageapi.repository.MileageRepository;
+import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -21,7 +21,7 @@ public class MileageAspect {
 
   private final String REVIEW_TYPE = "REVIEW";
 
-  private final MileageRepository mileageRepository;
+  private final MileageHistoryRepository mileageHistoryRepository;
 
   @Pointcut("execution(* com.example.mileageapi.service.EventService.createdReview(..))")
   public void onRequest() {}
@@ -35,7 +35,7 @@ public class MileageAspect {
 
     // 타입값이 리뷰일때
     if (REVIEW_TYPE.equals(dto.getType())) {
-      dto.getAction().saveMileagePoints(dto, mileageRepository);
+      dto.getAction().saveMileagePoints(dto, mileageHistoryRepository);
     }
 
     return pjp.proceed(pjp.getArgs());

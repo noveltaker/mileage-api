@@ -5,7 +5,7 @@ import com.example.mileageapi.constants.MileageType;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class MileageKey implements Serializable {
+public class MileageHistoryKey implements Serializable {
 
     private UUID reviewId;
 

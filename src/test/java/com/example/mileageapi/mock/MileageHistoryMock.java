@@ -1,14 +1,14 @@
 package com.example.mileageapi.mock;
 
 import com.example.mileageapi.constants.MileageType;
-import com.example.mileageapi.domain.Mileage;
+import com.example.mileageapi.domain.MileageHistory;
 
 import java.util.List;
 
-public class MileageMock {
+public class MileageHistoryMock {
 
-    public static Mileage createdMock() {
-        return Mileage.builder()
+    public static MileageHistory createdMock() {
+        return MileageHistory.builder()
                 .type(MileageType.REVIEW_ADD)
                 .reviewId(EventDTOMock.reviewId)
                 .placeId(EventDTOMock.placeId)
@@ -17,23 +17,23 @@ public class MileageMock {
                 .build();
     }
 
-    public static List<Mileage> createdMocks() {
+    public static List<MileageHistory> createdMocks() {
         return List.of(
-                Mileage.builder()
+                MileageHistory.builder()
                         .type(MileageType.REVIEW_ADD)
                         .reviewId(EventDTOMock.reviewId)
                         .placeId(EventDTOMock.placeId)
                         .userId(EventDTOMock.userId)
                         .point(1)
                         .build(),
-                Mileage.builder()
+                MileageHistory.builder()
                         .type(MileageType.CONTENT_ADD)
                         .reviewId(EventDTOMock.reviewId)
                         .placeId(EventDTOMock.placeId)
                         .userId(EventDTOMock.userId)
                         .point(1)
                         .build(),
-                Mileage.builder()
+                MileageHistory.builder()
                         .type(MileageType.PHOTO_ADD)
                         .reviewId(EventDTOMock.reviewId)
                         .placeId(EventDTOMock.placeId)
