@@ -20,6 +20,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MileageAspect {
 
+    private final String REVIEW_TYPE = "REVIEW";
+
     private final MileageRepository mileageRepository;
 
     @Pointcut("execution(* com.example.mileageapi.service.EventService.createdReview(..))")
@@ -33,11 +35,16 @@ public class MileageAspect {
 
         EventDTO dto = (EventDTO) requestBody.get("dto");
 
-        MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
+        // 타입값이 리뷰일때
+        if (REVIEW_TYPE.equals(dto.getType())) {
 
-        mileagePoint.createMileage();
+            MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
 
-        mileagePoint.saveMileagePoints();
+            mileagePoint.createMileage();
+
+            mileagePoint.saveMileagePoints();
+
+        }
 
         return pjp.proceed(pjp.getArgs());
     }
