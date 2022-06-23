@@ -1,7 +1,5 @@
 package com.example.mileageapi.config.aspect;
 
-import com.example.mileageapi.config.aspect.mileage.MileagePointFactory;
-import com.example.mileageapi.config.aspect.mileage.MileagePointFactoryImpl;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +35,7 @@ public class MileageAspect {
 
     // 타입값이 리뷰일때
     if (REVIEW_TYPE.equals(dto.getType())) {
-
-      MileagePointFactory mileagePointFactory = new MileagePointFactoryImpl(mileageRepository, dto);
-
-      mileagePointFactory.createMileage();
-
-      mileagePointFactory.saveMileagePoints();
+      dto.getAction().saveMileagePoints(dto, mileageRepository);
     }
 
     return pjp.proceed(pjp.getArgs());

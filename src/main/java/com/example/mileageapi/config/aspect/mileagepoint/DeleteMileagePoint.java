@@ -1,4 +1,4 @@
-package com.example.mileageapi.config.aspect.mileage.point;
+package com.example.mileageapi.config.aspect.mileagepoint;
 
 import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
 import com.example.mileageapi.constants.MileageType;
