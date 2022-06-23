@@ -1,7 +1,6 @@
 package com.example.mileageapi.service.dto;
 
 import com.example.mileageapi.constants.ActionType;
-import com.example.mileageapi.domain.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
