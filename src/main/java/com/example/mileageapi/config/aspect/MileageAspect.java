@@ -1,6 +1,7 @@
 package com.example.mileageapi.config.aspect;
 
-import com.example.mileageapi.config.aspect.mileagepoint.MileagePoint;
+import com.example.mileageapi.config.aspect.mileage.MileagePointFactory;
+import com.example.mileageapi.config.aspect.mileage.MileagePointFactoryImpl;
 import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
@@ -20,43 +21,41 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MileageAspect {
 
-    private final String REVIEW_TYPE = "REVIEW";
+  private final String REVIEW_TYPE = "REVIEW";
 
-    private final MileageRepository mileageRepository;
+  private final MileageRepository mileageRepository;
 
-    @Pointcut("execution(* com.example.mileageapi.service.EventService.createdReview(..))")
-    public void onRequest() {
+  @Pointcut("execution(* com.example.mileageapi.service.EventService.createdReview(..))")
+  public void onRequest() {}
+
+  @Around("com.example.mileageapi.config.aspect.MileageAspect.onRequest()")
+  public Object doLogging(ProceedingJoinPoint pjp) throws Throwable {
+
+    Map requestBody = getParams(pjp);
+
+    EventDTO dto = (EventDTO) requestBody.get("dto");
+
+    // 타입값이 리뷰일때
+    if (REVIEW_TYPE.equals(dto.getType())) {
+
+      MileagePointFactory mileagePointFactory = new MileagePointFactoryImpl(mileageRepository, dto);
+
+      mileagePointFactory.createMileage();
+
+      mileagePointFactory.saveMileagePoints();
     }
 
-    @Around("com.example.mileageapi.config.aspect.MileageAspect.onRequest()")
-    public Object doLogging(ProceedingJoinPoint pjp) throws Throwable {
+    return pjp.proceed(pjp.getArgs());
+  }
 
-        Map requestBody = getParams(pjp);
-
-        EventDTO dto = (EventDTO) requestBody.get("dto");
-
-        // 타입값이 리뷰일때
-        if (REVIEW_TYPE.equals(dto.getType())) {
-
-            MileagePoint mileagePoint = new MileagePoint(mileageRepository, dto);
-
-            mileagePoint.createMileage();
-
-            mileagePoint.saveMileagePoints();
-
-        }
-
-        return pjp.proceed(pjp.getArgs());
+  private Map getParams(JoinPoint joinPoint) {
+    CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
+    String[] parameterNames = codeSignature.getParameterNames();
+    Object[] args = joinPoint.getArgs();
+    Map<String, Object> params = new HashMap<>();
+    for (int i = 0; i < parameterNames.length; i++) {
+      params.put(parameterNames[i], args[i]);
     }
-
-    private Map getParams(JoinPoint joinPoint) {
-        CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
-        String[] parameterNames = codeSignature.getParameterNames();
-        Object[] args = joinPoint.getArgs();
-        Map<String, Object> params = new HashMap<>();
-        for (int i = 0; i < parameterNames.length; i++) {
-            params.put(parameterNames[i], args[i]);
-        }
-        return params;
-    }
+    return params;
+  }
 }
