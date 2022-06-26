@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Mileage extends AbstractDateEntity {
 
   @Id
-  @Column(unique = true, columnDefinition = "BINARY(16)")
+  @Column(unique = true, columnDefinition = "BINARY(16)" , nullable = false)
   private UUID userId;
 
   private Integer point;
