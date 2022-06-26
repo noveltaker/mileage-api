@@ -5,6 +5,7 @@ import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.mock.EventDTOMock;
 import com.example.mileageapi.mock.MileageHistoryMock;
 import com.example.mileageapi.mock.MileageMock;
+import com.example.mileageapi.service.dto.MileageInfo;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,20 @@ class MileageRepositoryTest {
 
       Assertions.assertEquals(mock.getUserId(), entity.getUserId());
       Assertions.assertEquals(mock.getPoint(), entity.getPoint());
+    }
+
+    @Test
+    @DisplayName("나의 마일리지 포인트 조회 테스트 케이스")
+    void findByUserId() {
+
+      Optional<MileageInfo> entityOptional =
+          mileageRepository.findByUserId(mockUserId, MileageInfo.class);
+
+      Assertions.assertTrue(entityOptional.isPresent());
+      Assertions.assertEquals(
+          entityOptional.map(MileageInfo::getUserId).orElseThrow(), mock.getUserId());
+      Assertions.assertEquals(
+          entityOptional.map(MileageInfo::getPoint).orElseThrow(), mock.getPoint());
     }
   }
 }
