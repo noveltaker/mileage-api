@@ -2,7 +2,7 @@ package com.example.mileageapi.service.dto;
 
 import java.util.UUID;
 
-public interface MyMileage {
+public interface MileageInfo {
 
   UUID getUserId();
 
