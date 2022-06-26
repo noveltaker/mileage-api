@@ -1,15 +1,15 @@
 package com.example.mileageapi.service.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MileageHistoryDTO {
 
   private Integer size;
