@@ -36,10 +36,4 @@ public class MileageHistory extends AbstractCreatedEntity {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private Mileage mileage;
-
-  @Transient
-  public void changedTypeAndPoint(MileageHistoryType type, Integer point) {
-    this.point = point;
-    this.type = type;
-  }
 }
