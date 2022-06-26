@@ -30,4 +30,11 @@ public class Mileage extends AbstractDateEntity {
   public void sumPoint(Integer point) {
     this.point += point;
   }
+
+  @PrePersist
+  void prePersist() {
+    if (point == null) {
+      this.point = 0;
+    }
+  }
 }
