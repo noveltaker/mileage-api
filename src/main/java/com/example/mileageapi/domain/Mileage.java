@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Mileage extends AbstractDateEntity{
+public class Mileage extends AbstractDateEntity {
 
   @Id
   @Column(unique = true, columnDefinition = "BINARY(16)")
@@ -23,4 +23,9 @@ public class Mileage extends AbstractDateEntity{
   @Builder.Default
   @OneToMany(mappedBy = "mileage")
   private Set<MileageHistory> historySet = new HashSet<>();
+
+  @Transient
+  public void sumPoint(Integer point) {
+    this.point += point;
+  }
 }

@@ -5,6 +5,7 @@ import com.example.mileageapi.config.aspect.mileagepoint.AddMileagePoint;
 import com.example.mileageapi.config.aspect.mileagepoint.DeleteMileagePoint;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
+import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 
 import java.util.List;
@@ -13,32 +14,44 @@ public enum ActionType {
   ADD {
     @Override
     protected AbstractMileagePoint getMileagePoint(
-        EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
-      return new AddMileagePoint(dto, mileageHistoryRepository);
+        EventDTO dto,
+        MileageHistoryRepository mileageHistoryRepository,
+        MileageRepository mileageRepository) {
+      return new AddMileagePoint(dto, mileageHistoryRepository, mileageRepository);
     }
   },
   MOD {
     @Override
     protected AbstractMileagePoint getMileagePoint(
-        EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
+        EventDTO dto,
+        MileageHistoryRepository mileageHistoryRepository,
+        MileageRepository mileageRepository) {
       return null;
     }
   },
   DELETE {
     @Override
     protected AbstractMileagePoint getMileagePoint(
-        EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
-      return new DeleteMileagePoint(dto, mileageHistoryRepository);
+        EventDTO dto,
+        MileageHistoryRepository mileageHistoryRepository,
+        MileageRepository mileageRepository) {
+      return new DeleteMileagePoint(dto, mileageHistoryRepository, mileageRepository);
     }
   };
 
   ActionType() {}
 
   protected abstract AbstractMileagePoint getMileagePoint(
-      EventDTO dto, MileageHistoryRepository mileageHistoryRepository);
+      EventDTO dto,
+      MileageHistoryRepository mileageHistoryRepository,
+      MileageRepository mileageRepository);
 
-  public void saveMileagePoints(EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
-    List<MileageHistory> points = getMileagePoint(dto, mileageHistoryRepository).getPoints();
+  public void saveMileagePoints(
+      EventDTO dto,
+      MileageHistoryRepository mileageHistoryRepository,
+      MileageRepository mileageRepository) {
+    List<MileageHistory> points =
+        getMileagePoint(dto, mileageHistoryRepository, mileageRepository).getPoints();
     mileageHistoryRepository.saveAll(points);
   }
 }

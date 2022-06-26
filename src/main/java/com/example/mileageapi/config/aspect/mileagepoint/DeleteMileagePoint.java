@@ -4,6 +4,7 @@ import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
 import com.example.mileageapi.constants.MileageHistoryType;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
+import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 
 import java.util.ArrayList;
@@ -13,10 +14,16 @@ import java.util.UUID;
 public class DeleteMileagePoint extends AbstractMileagePoint {
 
   private final List<MileageHistoryType> mileageHistoryTypeList =
-      List.of(MileageHistoryType.CONTENT_ADD, MileageHistoryType.PHOTO_ADD, MileageHistoryType.REVIEW_ADD);
+      List.of(
+          MileageHistoryType.CONTENT_ADD,
+          MileageHistoryType.PHOTO_ADD,
+          MileageHistoryType.REVIEW_ADD);
 
-  public DeleteMileagePoint(EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
-    super(dto, mileageHistoryRepository);
+  public DeleteMileagePoint(
+      EventDTO dto,
+      MileageHistoryRepository mileageHistoryRepository,
+      MileageRepository mileageRepository) {
+    super(dto, mileageRepository, mileageHistoryRepository);
   }
 
   @Override
@@ -24,7 +31,7 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
 
     EventDTO dto = this.getDto();
 
-    MileageHistoryRepository mileageHistoryRepository = this.getMileageRepository();
+    MileageHistoryRepository mileageHistoryRepository = getMileageHistoryRepository();
 
     UUID reviewId = dto.getReviewId();
 

@@ -1,6 +1,7 @@
 package com.example.mileageapi.config.aspect;
 
 import com.example.mileageapi.repository.MileageHistoryRepository;
+import com.example.mileageapi.repository.MileageRepository;
 import com.example.mileageapi.service.dto.EventDTO;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -23,6 +24,8 @@ public class MileageAspect {
 
   private final MileageHistoryRepository mileageHistoryRepository;
 
+  private final MileageRepository mileageRepository;
+
   @Pointcut("execution(* com.example.mileageapi.service.EventService.createdReview(..))")
   public void onRequest() {}
 
@@ -35,20 +38,28 @@ public class MileageAspect {
 
     // 타입값이 리뷰일때
     if (REVIEW_TYPE.equals(dto.getType())) {
-      dto.getAction().saveMileagePoints(dto, mileageHistoryRepository);
+      dto.getAction().saveMileagePoints(dto, mileageHistoryRepository, mileageRepository);
     }
 
     return pjp.proceed(pjp.getArgs());
   }
 
   private Map getParams(JoinPoint joinPoint) {
+
     CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
+
     String[] parameterNames = codeSignature.getParameterNames();
+
     Object[] args = joinPoint.getArgs();
+
     Map<String, Object> params = new HashMap<>();
-    for (int i = 0; i < parameterNames.length; i++) {
+
+    int nameSize = parameterNames.length;
+
+    for (int i = 0; i < nameSize; i++) {
       params.put(parameterNames[i], args[i]);
     }
+
     return params;
   }
 }
