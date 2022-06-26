@@ -1,6 +1,7 @@
 package com.example.mileageapi.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicUpdate
 public class Mileage extends AbstractDateEntity {
 
   @Id
