@@ -14,4 +14,9 @@ public enum MileageHistoryType {
   PHOTO_REMOVE,
   // 첫번째 장소의 리뷰 삭제
   REVIEW_REMOVE,
+
+  // 컨텐츠 수정
+  CONTENT_MOD,
+  // 사진 추가
+  PHOTO_MOD
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class DeleteMileagePoint extends AbstractMileagePoint {
+public final class DeleteMileagePoint extends AbstractMileagePoint {
 
   private final List<MileageHistoryType> mileageHistoryTypeList =
       List.of(

@@ -3,6 +3,7 @@ package com.example.mileageapi.constants;
 import com.example.mileageapi.config.aspect.mileagepoint.AbstractMileagePoint;
 import com.example.mileageapi.config.aspect.mileagepoint.AddMileagePoint;
 import com.example.mileageapi.config.aspect.mileagepoint.DeleteMileagePoint;
+import com.example.mileageapi.config.aspect.mileagepoint.ModMileagePoint;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.repository.MileageRepository;
@@ -26,7 +27,7 @@ public enum ActionType {
         EventDTO dto,
         MileageHistoryRepository mileageHistoryRepository,
         MileageRepository mileageRepository) {
-      return null;
+      return new ModMileagePoint(dto, mileageHistoryRepository, mileageRepository);
     }
   },
   DELETE {

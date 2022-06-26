@@ -37,6 +37,11 @@ public final class AddMileagePoint extends AbstractMileagePoint {
     // 장소 기준으로 첫 리뷰 작성
     UUID placeId = dto.getPlaceId();
 
+    // 컨텐츠 데이터
+    String content = dto.getContent();
+
+    int contentLength = content.length();
+
     // 나의 마일리지 포인트 조회
     Mileage mileage = getMyMileage(userId);
 
@@ -54,10 +59,6 @@ public final class AddMileagePoint extends AbstractMileagePoint {
               .point(1)
               .build());
     }
-
-    String content = dto.getContent();
-
-    int contentLength = content.length();
 
     // 컨텐츠 길이가 1 이상일떄 포인트 추가
     if (contentLength > 0) {
