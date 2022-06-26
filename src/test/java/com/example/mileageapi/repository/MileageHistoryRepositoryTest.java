@@ -23,8 +23,7 @@ class MileageHistoryRepositoryTest {
 
   private Mileage mileage;
 
-  @Test
-  @DisplayName("초기 세팅")
+  @BeforeEach
   void init() {
     mileage = mileageRepository.save(MileageMock.createdMock());
     mileageRepository.flush();
