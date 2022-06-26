@@ -1,6 +1,6 @@
 package com.example.mileageapi.domain;
 
-import com.example.mileageapi.constants.MileageType;
+import com.example.mileageapi.constants.MileageHistoryType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,32 +10,35 @@ import java.util.UUID;
 @Entity
 @Builder
 @AllArgsConstructor
-@IdClass(value = MileageHistoryKey.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MileageHistory extends AbstractDateEntity {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  // 리뷰의 아이디
   @Column(columnDefinition = "BINARY(16)")
   private UUID reviewId;
 
-  // mileage type
-  @Id
+  // 마일리지 내역 타입
   @Enumerated(EnumType.STRING)
-  private MileageType type;
+  private MileageHistoryType type;
 
-  // 리뷰 작성 유저의 아이디
-  @Column(columnDefinition = "BINARY(16)")
-  private UUID userId;
-
-  // 장소 id
+  // 장소 아이디
   @Column(columnDefinition = "BINARY(16)")
   private UUID placeId;
 
+  // 변경된 포인트 값
   @Column(nullable = false)
   private Integer point;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private Mileage mileage;
+
   @Transient
-  public void changedTypeAndPoint(MileageType type, Integer point) {
+  public void changedTypeAndPoint(MileageHistoryType type, Integer point) {
     this.point = point;
     this.type = type;
   }

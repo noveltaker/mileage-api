@@ -1,6 +1,6 @@
 package com.example.mileageapi.domain;
 
-import com.example.mileageapi.constants.MileageType;
+import com.example.mileageapi.constants.MileageHistoryType;
 import com.example.mileageapi.mock.MileageHistoryMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,7 @@ class MileageHsitoryTest {
 
         MileageHistory mock = MileageHistoryMock.createdMock();
 
-        MileageType mockType = MileageType.REVIEW_REMOVE;
+        MileageHistoryType mockType = MileageHistoryType.REVIEW_REMOVE;
 
         int mockPoint = mock.getPoint() * -1;
 

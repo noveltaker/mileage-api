@@ -1,7 +1,7 @@
 package com.example.mileageapi.config.aspect.mileagepoint;
 
 import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
-import com.example.mileageapi.constants.MileageType;
+import com.example.mileageapi.constants.MileageHistoryType;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.service.dto.EventDTO;
@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class DeleteMileagePoint extends AbstractMileagePoint {
 
-  private final List<MileageType> mileageTypeList =
-      List.of(MileageType.CONTENT_ADD, MileageType.PHOTO_ADD, MileageType.REVIEW_ADD);
+  private final List<MileageHistoryType> mileageHistoryTypeList =
+      List.of(MileageHistoryType.CONTENT_ADD, MileageHistoryType.PHOTO_ADD, MileageHistoryType.REVIEW_ADD);
 
   public DeleteMileagePoint(EventDTO dto, MileageHistoryRepository mileageHistoryRepository) {
     super(dto, mileageHistoryRepository);
@@ -32,16 +32,16 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
 
     List<MileageHistory> deleteMileageList = new ArrayList<>();
 
-    for (MileageType type : mileageTypeList) {
+    for (MileageHistoryType type : mileageHistoryTypeList) {
 
       for (MileageHistory mileage : reviewMileageList) {
         if (type.equals(mileage.getType())) {
 
-          MileageType removeMileageType = changeRemoveType(mileage.getType());
+          MileageHistoryType removeMileageHistoryType = changeRemoveType(mileage.getType());
 
           int point = mileage.getPoint() * -1;
 
-          mileage.changedTypeAndPoint(removeMileageType, point);
+          mileage.changedTypeAndPoint(removeMileageHistoryType, point);
 
           deleteMileageList.add(mileage);
           break;
@@ -52,14 +52,14 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
     return deleteMileageList;
   }
 
-  private MileageType changeRemoveType(MileageType type) {
+  private MileageHistoryType changeRemoveType(MileageHistoryType type) {
     switch (type) {
       case CONTENT_ADD:
-        return MileageType.CONTENT_REMOVE;
+        return MileageHistoryType.CONTENT_REMOVE;
       case PHOTO_ADD:
-        return MileageType.PHOTO_REMOVE;
+        return MileageHistoryType.PHOTO_REMOVE;
       case REVIEW_ADD:
-        return MileageType.REVIEW_REMOVE;
+        return MileageHistoryType.REVIEW_REMOVE;
       default:
         throw new NotMatchMileageTypeException(type.name());
     }

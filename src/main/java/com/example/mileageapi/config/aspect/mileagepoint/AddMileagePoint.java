@@ -1,6 +1,6 @@
 package com.example.mileageapi.config.aspect.mileagepoint;
 
-import com.example.mileageapi.constants.MileageType;
+import com.example.mileageapi.constants.MileageHistoryType;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.service.dto.EventDTO;
@@ -38,9 +38,9 @@ public final class AddMileagePoint extends AbstractMileagePoint {
     if (reviewCount == 0) {
       mileageList.add(
           MileageHistory.builder()
-              .type(MileageType.REVIEW_ADD)
+              .type(MileageHistoryType.REVIEW_ADD)
               .reviewId(reviewId)
-              .userId(userId)
+//              .userId(userId)
               .placeId(placeId)
               .point(1)
               .build());
@@ -54,9 +54,9 @@ public final class AddMileagePoint extends AbstractMileagePoint {
     if (contentLength > 0) {
       mileageList.add(
           MileageHistory.builder()
-              .type(MileageType.CONTENT_ADD)
+              .type(MileageHistoryType.CONTENT_ADD)
               .reviewId(reviewId)
-              .userId(userId)
+//              .userId(userId)
               .placeId(placeId)
               .point(1)
               .build());
@@ -68,9 +68,9 @@ public final class AddMileagePoint extends AbstractMileagePoint {
     if (attachedPhotoIds.size() > 0) {
       mileageList.add(
           MileageHistory.builder()
-              .type(MileageType.PHOTO_ADD)
+              .type(MileageHistoryType.PHOTO_ADD)
               .reviewId(reviewId)
-              .userId(userId)
+//              .userId(userId)
               .placeId(placeId)
               .point(1)
               .build());
