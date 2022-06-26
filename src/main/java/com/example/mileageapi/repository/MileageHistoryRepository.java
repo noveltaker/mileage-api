@@ -1,6 +1,7 @@
 package com.example.mileageapi.repository;
 
 import com.example.mileageapi.domain.MileageHistory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ public interface MileageHistoryRepository extends JpaRepository<MileageHistory, 
   long countByPlaceId(UUID placeId);
 
   List<MileageHistory> findByReviewId(UUID reviewId);
+
+  <T> Page<T> findByMileage_UserId(UUID userId, Class<T> type);
 }
