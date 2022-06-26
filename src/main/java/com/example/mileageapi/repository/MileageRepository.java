@@ -11,7 +11,7 @@ import java.util.UUID;
 @Repository
 public interface MileageRepository extends JpaRepository<Mileage, UUID> {
 
-  <T> Optional<T> findById(UUID id, Class<T> type);
+  <T> Optional<T> findByUserId(UUID id, Class<T> type);
 
   @Override
   Optional<Mileage> findById(UUID uuid);

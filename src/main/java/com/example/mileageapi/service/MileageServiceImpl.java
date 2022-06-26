@@ -18,6 +18,6 @@ public class MileageServiceImpl implements MileageService {
   @Override
   @Transactional(readOnly = true)
   public Optional<MyMileage> getMyMileage(UUID userId) {
-    return mileageRepository.findById(userId, MyMileage.class);
+    return mileageRepository.findByUserId(userId, MyMileage.class);
   }
 }
