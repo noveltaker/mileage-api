@@ -1,6 +1,7 @@
 package com.example.mileageapi.web;
 
 import com.example.mileageapi.service.MileageService;
+import com.example.mileageapi.service.dto.MileageHistoryDTO;
 import com.example.mileageapi.service.dto.MileageHistoryInfo;
 import com.example.mileageapi.service.dto.MileageInfo;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class MileageController {
   }
 
   @GetMapping("my-milesage-histories")
-  public ResponseEntity<Page<MileageHistoryInfo>> getMyMileageHistories(UUID userId) {
+  public ResponseEntity<Page<MileageHistoryInfo>> getMyMileageHistories(MileageHistoryDTO dto) {
     Page<MileageHistoryInfo> data = mileageService.getMyMileageHistories(userId);
     return ResponseEntity.ok().body(data);
   }

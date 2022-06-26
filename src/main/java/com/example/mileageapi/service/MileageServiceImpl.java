@@ -3,6 +3,7 @@ package com.example.mileageapi.service;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.repository.MileageRepository;
+import com.example.mileageapi.service.dto.MileageHistoryDTO;
 import com.example.mileageapi.service.dto.MileageHistoryInfo;
 import com.example.mileageapi.service.dto.MileageInfo;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,8 @@ public class MileageServiceImpl implements MileageService {
 
   @Override
   @Transactional(readOnly = true)
-  public Page<MileageHistoryInfo> getMyMileageHistories(UUID userId) {
-    return mileageHistoryRepository.findByMileage_UserId(userId, MileageHistoryInfo.class);
+  public Page<MileageHistoryInfo> getMyMileageHistories(MileageHistoryDTO dto) {
+    return mileageHistoryRepository.findByMileage_UserId(
+        dto.getPageRequest(), dto.getUserId(), MileageHistoryInfo.class);
   }
 }
