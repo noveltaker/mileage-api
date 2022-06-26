@@ -70,7 +70,6 @@ class MileageRepositoryTest {
 
       Assertions.assertEquals(mock.getUserId(), entity.getUserId());
       Assertions.assertEquals(mock.getPoint(), entity.getPoint());
-      Assertions.assertEquals(histories.size(), entity.getHistorySet().size());
     }
   }
 }
