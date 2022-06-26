@@ -1,7 +1,10 @@
 package com.example.mileageapi.config.aspect.mileagepoint;
 
-import com.example.mileageapi.config.exception.NotMatchMileageTypeException;
+import com.example.mileageapi.config.exception.BaseException;
+import com.example.mileageapi.config.exception.NotMatchMileageHistoryTypeException;
 import com.example.mileageapi.constants.MileageHistoryType;
+import com.example.mileageapi.constants.MsgType;
+import com.example.mileageapi.domain.Mileage;
 import com.example.mileageapi.domain.MileageHistory;
 import com.example.mileageapi.repository.MileageHistoryRepository;
 import com.example.mileageapi.repository.MileageRepository;
@@ -9,6 +12,7 @@ import com.example.mileageapi.service.dto.EventDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class DeleteMileagePoint extends AbstractMileagePoint {
@@ -29,34 +33,53 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
   @Override
   public List<MileageHistory> getPoints() {
 
-    EventDTO dto = this.getDto();
+    EventDTO dto = getDto();
 
-    MileageHistoryRepository mileageHistoryRepository = getMileageHistoryRepository();
-
+    // review 아이디
     UUID reviewId = dto.getReviewId();
 
-    List<MileageHistory> reviewMileageList = mileageHistoryRepository.findByReviewId(reviewId);
+    // 유저의 아이디
+    UUID userId = dto.getUserId();
 
-    List<MileageHistory> deleteMileageList = new ArrayList<>();
+    // 장소 아이디
+    UUID placeId = dto.getPlaceId();
+
+    MileageRepository mileageRepository = getMileageRepository();
+
+    Mileage mileage =
+        mileageRepository
+            .findByUserIdAndHistorySet_ReviewId(userId, reviewId)
+            .orElseThrow(() -> new BaseException(MsgType.EmptyMileageData));
+
+    Set<MileageHistory> mileageHistories = mileage.getHistorySet();
+
+    List<MileageHistory> removeHistoryTypeList = new ArrayList<>();
 
     for (MileageHistoryType type : mileageHistoryTypeList) {
 
-      for (MileageHistory mileage : reviewMileageList) {
-        if (type.equals(mileage.getType())) {
+      for (MileageHistory mileageHistory : mileageHistories) {
 
-          MileageHistoryType removeMileageHistoryType = changeRemoveType(mileage.getType());
+        if (type.equals(mileageHistory.getType())) {
 
-          int point = mileage.getPoint() * -1;
-
-          mileage.changedTypeAndPoint(removeMileageHistoryType, point);
-
-          deleteMileageList.add(mileage);
+          removeHistoryTypeList.add(
+              MileageHistory.builder()
+                  .type(changeRemoveType(type))
+                  .point(mileageHistory.getPoint() * -1)
+                  .mileage(mileage)
+                  .placeId(placeId)
+                  .reviewId(reviewId)
+                  .build());
           break;
         }
       }
     }
 
-    return deleteMileageList;
+    Integer updatePoint =
+        removeHistoryTypeList.stream().map(MileageHistory::getPoint).reduce(0, Integer::sum);
+
+    mileage.sumPoint(updatePoint);
+
+    return removeHistoryTypeList;
   }
 
   private MileageHistoryType changeRemoveType(MileageHistoryType type) {
@@ -68,7 +91,7 @@ public class DeleteMileagePoint extends AbstractMileagePoint {
       case REVIEW_ADD:
         return MileageHistoryType.REVIEW_REMOVE;
       default:
-        throw new NotMatchMileageTypeException(type.name());
+        throw new NotMatchMileageHistoryTypeException();
     }
   }
 }
