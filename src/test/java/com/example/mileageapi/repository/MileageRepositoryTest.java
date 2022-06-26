@@ -35,6 +35,8 @@ class MileageRepositoryTest {
 
     private UUID mockUserId = EventDTOMock.userId;
 
+    private UUID mockReviewId = EventDTOMock.reviewId;
+
     @BeforeEach
     void init() {
 
@@ -55,6 +57,20 @@ class MileageRepositoryTest {
 
       Assertions.assertEquals(mock.getUserId(), entity.getUserId());
       Assertions.assertEquals(mock.getPoint(), entity.getPoint());
+    }
+
+    @Test
+    @DisplayName("유저 별 mileage 와 review 별 히스토리 테스트 케이스")
+    void findByUserIdAndHistorySet_ReviewId() {
+
+      Mileage entity =
+          mileageRepository
+              .findByUserIdAndHistorySet_ReviewId(mockUserId, mockReviewId)
+              .orElseThrow();
+
+      Assertions.assertEquals(mock.getUserId(), entity.getUserId());
+      Assertions.assertEquals(mock.getPoint(), entity.getPoint());
+      Assertions.assertEquals(histories.size(), entity.getHistorySet().size());
     }
   }
 }
