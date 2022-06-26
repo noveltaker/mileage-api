@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MileageHistory extends AbstractDateEntity {
+public class MileageHistory extends AbstractCreatedEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

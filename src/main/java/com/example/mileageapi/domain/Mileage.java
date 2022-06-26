@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Mileage {
+public class Mileage extends AbstractDateEntity{
 
   @Id
   @Column(unique = true, columnDefinition = "BINARY(16)")
