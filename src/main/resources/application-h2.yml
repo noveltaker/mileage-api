@@ -1,0 +1,11 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      settings.trace: false
+      settings.web-allow-others: false
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:tcp://localhost:9095/mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+      username: sa
+      password:
