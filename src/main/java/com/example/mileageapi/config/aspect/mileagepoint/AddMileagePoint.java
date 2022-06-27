@@ -100,10 +100,6 @@ public final class AddMileagePoint extends AbstractMileagePoint {
 
     Optional<Mileage> mileageOptional = mileageRepository.findById(userId);
 
-    if (mileageOptional.isPresent()) {
-      return mileageOptional.get();
-    }
-
-    return mileageRepository.save(Mileage.builder().userId(userId).point(0).build());
+    return mileageOptional.orElseGet(() -> mileageRepository.save(Mileage.builder().userId(userId).point(0).build()));
   }
 }
