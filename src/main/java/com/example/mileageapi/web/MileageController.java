@@ -29,7 +29,7 @@ public class MileageController {
     return ResponseEntity.ok().body(data.get());
   }
 
-  @GetMapping("my-milesage-histories")
+  @GetMapping("my-mileage-histories")
   public ResponseEntity<Page<MileageHistoryInfo>> getMyMileageHistories(MileageHistoryDTO dto) {
     Page<MileageHistoryInfo> data = mileageService.getMyMileageHistories(dto);
     return ResponseEntity.ok().body(data);
