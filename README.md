@@ -24,7 +24,7 @@ docker run --name mysql_custom -d -p 3306:3306 mysql_custom:laster
 
 `POST /events` 이벤트 발생 되는 api 를 통해서 type 이 review 라면 마일리지의 증감 로직이 발생이 됩니다.
 
-또한 type 별로 ADD , MOD , DELETE 각각의 로직에 따라 마일리지가 쌓이게 됩니다.
+또한 type 별로 ADD , MOD , DELETE 각각의 로직에 따라 마일리지가 증감하게 됩니다.
 
 총 나의 마일리지를 관리하는 테이블 Mileage 이 존재를 하며 마일리지 히스토리를 관리하는 Mileage_history 테이블 두가지로 구성을 하였습니다.
 
