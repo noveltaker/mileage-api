@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,7 +23,7 @@ public class MileageController {
   private final MileageService mileageService;
 
   @GetMapping("my-mileage")
-  public ResponseEntity<MileageInfo> getMyMileage(String userId) {
+  public ResponseEntity<MileageInfo> getMyMileage(@Valid @NotNull String userId) {
     Optional<MileageInfo> data = mileageService.getMyMileage(UUID.fromString(userId));
     if (data.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -30,7 +32,8 @@ public class MileageController {
   }
 
   @GetMapping("my-mileage-histories")
-  public ResponseEntity<Page<MileageHistoryInfo>> getMyMileageHistories(MileageHistoryDTO dto) {
+  public ResponseEntity<Page<MileageHistoryInfo>> getMyMileageHistories(
+      @Valid MileageHistoryDTO dto) {
     Page<MileageHistoryInfo> data = mileageService.getMyMileageHistories(dto);
     return ResponseEntity.ok().body(data);
   }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -12,11 +13,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MileageHistoryDTO {
 
-  private Integer size;
+  @NotNull private Integer size;
 
-  private Integer page;
+  @NotNull private Integer page;
 
-  private UUID userId;
+  @NotNull private UUID userId;
 
   public PageRequest getPageRequest() {
     return PageRequest.of(this.size, this.page);
