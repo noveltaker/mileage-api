@@ -20,7 +20,7 @@ public class MileageController {
 
   private final MileageService mileageService;
 
-  @GetMapping("my=mileage")
+  @GetMapping("my-mileage")
   public ResponseEntity<MileageInfo> getMyMileage(String userId) {
     Optional<MileageInfo> data = mileageService.getMyMileage(UUID.fromString(userId));
     if (data.isEmpty()) {
